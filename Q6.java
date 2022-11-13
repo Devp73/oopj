@@ -1,159 +1,56 @@
+package external;
+
 import java.util.Scanner;
-abstract class RowMaterial
-{
-    int goods;
-    double st,sr; 
-    
-}
-class ByRoad extends RowMaterial
-{
-    
-}
-class ByShip extends RowMaterial
-{
-    
-}
-class Railway extends ByRoad
-{
-    Scanner sc=new Scanner(System.in);
-    void calculate()
-    {
-        System.out.println("Enter Goods :");
-        goods = sc.nextInt();
-        if(goods <1)
-        {
-        try 
-        {
-            throw new MyException(" ");
-        }
-        catch(MyException ex)
-        {
-           System.out.println("Custom Exception");
-        }
-    }
-        st = (double)(12*goods)/100;
-        sr = (double)(3*st)/ 100;
-    }
-    void display()
-    {
-        System.out.println("Railway Service Tax: "+st);
-        System.out.println("Railway Surcharge: "+sr);
+
+class MarksOutOfBoundsException extends Exception {
+    public String toString() {
+        return "Enter valid marks";
     }
 }
-class Transport extends ByRoad
-{
-    Scanner sc=new Scanner(System.in);
-    void calculate()
-    {
-        System.out.println("Enter Goods :");
-        goods =sc.nextInt();
-        if(goods <1)
-        {
-        try 
-        {
-            throw new MyException("Custom Exception ");
+
+class Student {
+
+    int rno, marks[] = new int[4];
+
+    Student(int rno, int marks[]) {
+        this.rno = rno;
+//        System.arraycopy(marks, 0, this.marks, 0, 4);
+        for (int i = 0; i < 4; i++) {
+            this.marks[i] = marks[i];
         }
-        catch(MyException ex)
-        {
-         
-        }
-        }
-        
-        st = (double)(12*goods)/100;
-        sr = (double)(3*st)/ 100;
-        
     }
-    void display()
-    {
-        System.out.println("Transport Service Tax: "+st);
-        System.out.println("Transport Surcharge: "+sr);
+
+    void disp() {
+        System.out.println("Roll no: " + rno);
+        for (int i = 0; i < 4; i++) {
+            System.out.println("Subject " + (i + 1) + "Marks = " + marks[i]);
+        }
     }
+
 }
-class Ship extends ByShip
-{
-    Scanner sc=new Scanner(System.in);
-    int c;
-    
-    void calculate()
-    {
-        System.out.println("Enter Goods :");
-        goods = sc.nextInt();
-        if(goods < 1)
-        {
-        try 
-        {
-            throw new MyException("Custom Exception ");
+
+public class Q6 {
+
+    public static void main(String args[]) {
+        int rno, marks[] = new int[4];
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter your roll no: ");
+        rno = sc.nextInt();
+        try {
+            for (int i = 0; i < 4; i++) {
+                System.out.print("Enter marks for Subject " + (i + 1) + ": ");
+                marks[i] = sc.nextInt();
+                if (marks[i] > 100 || marks[i] < 0) {
+                    throw new MarksOutOfBoundsException();
+                }
+            }
+            Student stud = new Student(rno, marks);
+            stud.disp();
+        } catch (MarksOutOfBoundsException e) {
+            System.out.println(e.toString());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(e.toString());
         }
-        catch(MyException ex)
-        {
-           
-        }
-        }
-        System.out.println("Transporting Within Country?? 0/1");
-        c=sc.nextInt();
-        if(c==1)
-        {
-            st = (double)(10*goods)/100;
-            sr = (double)(2*st)/ 100;
-        }
-        else
-        {
-            st = (double)(20*goods)/100;
-            sr = (double)(2*st)/ 100;    
-        }
-        
+
     }
-    void display()
-    {
-        System.out.println("Ship Service Tax: "+st);
-        System.out.println("Ship Surcharge: "+sr);
-    }
-}
-class MyException extends Exception
-{
-    public MyException(String s)
-    {
-        super(s);
-    }
-}
-public class Q6
-{
-	public static void main(String[] args)
-	{
-	    Scanner sc=new Scanner(System.in);
-	    
-	    Railway r=new Railway();
-	    Transport t= new Transport();
-	    Ship s=new Ship();
-	    int ch=1;
-	    while(ch!=0)
-	    {
-	        System.out.println("Select Number :");
-	        System.out.println("0.Exit ");
-	        System.out.println("1.Railway ");
-	        System.out.println("2.Transport ");
-	        System.out.println("3.Ship ");
-	        ch=sc.nextInt();
-	        switch(ch)
-	        {
-	            case 0:
-	                break;
-	            case 1:
-	                r.calculate();
-	                r.display();
-	                break;
-	            case 2:
-	                t.calculate();
-	                t.display();
-	                break;
-	            case 3:
-	                s.calculate();
-	                s.display();
-	                break;
-	            default:
-	                System.out.println("Please Enter Valid Number !!");
-	            
-	        }
-	    }
-	}
 }

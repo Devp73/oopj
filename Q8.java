@@ -1,56 +1,156 @@
-class MyThread2 implements Runnable
+package external;
+
+import java.util.*;
+
+abstract class Lib
 {
-    Thread T1; 
-    MyThread2(String str)
-    {
-        T1 = new Thread(this); 
-        T1.start();
-    }
-    public void run()
-    {
-        try
-        {
-            for(int i=1;i<=10;i++)
-            {
-                System.out.println(+ (i*i));
-                T1.sleep(1000);
-            }
-        }
-        catch(InterruptedException ex)
-        {
-            
-        }
-    }
+    int java=100, sql=150, cg=50;
+    
+    abstract void submit();
+    abstract void issue();
 }
 
-
-public class Q8 {
-    public static void main(String args[])
-    {
-        Thread t = Thread.currentThread();
-        MyThread2 m1;
-        m1 = new MyThread2("");
-        try
-        {
-            for(int i=1;i<=10;i++)
-            {
-                System.out.println("    " + i);
-                Thread.sleep(1000);
-            }
-        }
-        catch(InterruptedException ex)
-        {
-            
-        }
-    }
+interface student
+{
+    void info();
 }
 
-/*public class Q8 {
-    public static void main(String[] args) {
-        Multi m1=new Multi();
-        Multi2 m2=new Multi2(); 
+interface staff
+{
+    void info();
+}
+
+class LibTransitions extends Lib
+{
+    Scanner sc = new Scanner(System.in);
+    void submit()
+    {
+        System.out.println("Which Book You want to Submit? Java/SQL/CG ?");
+        String s = sc.next();
         
-        m1.start();
-        m2.start();
-    }   
-}*/
+        if(s.equalsIgnoreCase("java"))
+        {
+            if(java==100)
+            {
+                System.out.println("Invalid Submit");
+            }
+            else
+            {
+                java++;
+                System.out.println("Book Submitted");
+                System.out.println("Stock: " + java);
+            }
+        }
+        
+        if(s.equalsIgnoreCase("sql"))
+        {
+            if(sql==150)
+            {
+                System.out.println("Invalid Submit");
+            }
+            else
+            {
+                sql++;
+                System.out.println("Book Submitted");
+                System.out.println("Stock: " + sql);
+            }
+        }
+        
+        if(s.equalsIgnoreCase("cg"))
+        {
+            if(cg==50)
+            {
+                System.out.println("Invalid Submit");
+            }
+            else
+            {
+                cg++;
+                System.out.println("Book Submitted");
+                System.out.println("Stock: " + cg);
+            }
+        }
+    }
+    
+    void issue()
+    {
+        System.out.println("Which Book You want to Issue? Java/SQL/CG ?");
+        String s = sc.next();
+        
+        if(s.equalsIgnoreCase("java"))
+        {
+            if(java==0)
+            {
+                System.out.println("No More Books");
+            }
+            else
+            {
+                java--;
+                System.out.println("Book Issued");
+                System.out.println("Stock: " + java);
+            }
+            
+        }
+        
+        if(s.equalsIgnoreCase("sql"))
+        {
+            if(sql==0)
+            {
+                System.out.println("No More Books");
+            }
+            else
+            {
+                sql--;
+                System.out.println("Book Issued");
+                System.out.println("Stock: " + sql);
+            }
+        }
+        
+        if(s.equalsIgnoreCase("cg"))
+        {
+            if(cg==0)
+            {
+                System.out.println("No More Books");
+            }
+            else
+            {
+                cg--;
+                System.out.println("Book Issued");
+                System.out.println("Stock: " + cg);
+            }
+        }
+    }
+}
+
+public class Q8
+{
+    public static void main(String... args)
+    {
+        Scanner sc=new Scanner(System.in);
+	    
+        LibTransitions lt = new LibTransitions();
+        
+        int ch=1;
+        while(ch!=0)
+        {
+            System.out.println("Select Number :");
+            System.out.println("0.Exit ");
+            System.out.println("1.Submit ");
+            System.out.println("2.Issue ");
+            
+            ch=sc.nextInt();
+            switch(ch)
+            {
+                case 0:
+                    break;
+                case 1:
+                    lt.submit();
+                    break;
+                case 2:
+                    lt.issue();
+                    break; 
+                default:
+                    System.out.println("Please Enter Valid Number !!");
+            }
+        }
+    }
+}
