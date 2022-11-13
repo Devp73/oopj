@@ -1,69 +1,35 @@
-abstract class Fruit
-{
-    String color;
-    Fruit(String c)
+package external;
+public class Q2 {
+    static void getMaxChar(String str)
     {
-        color = c;
+        int len=str.length();
+        String temp = new String();
+        //freq array based on ascii value
+        int cnt[] = new int[256]; //ascii size
+        
+        for (int i = 0; i < len; i++) {
+            cnt[str.charAt(i)]++;
+        }
+        
+        //removing duplicates from the string
+        for (int i = 0; i < len; i++) {
+            char ch = str.charAt(i);
+            //check if char is already present in temp
+            if(temp.indexOf(ch) < 0)
+            {
+                temp += ch;
+            }
+        }
+        //print char and their occureneces
+        for (int i = 0; i < temp.length(); i++) {
+            char ch=temp.charAt(i);
+            if(cnt[ch] > 1)
+            {
+                System.out.println(ch +" " + cnt[ch]);
+            }
+        }
     }
-    abstract public String toString();
-}
-
-class Apple extends Fruit
-{
-    Apple(String c)
-    {
-        super(c);
+    public static void main(String args[]) {
+        getMaxChar("howareyoudoingha");
     }
-    public String toString()
-    {
-        return "Color of Apple " + color;
-    }
-}
-class Orange extends Fruit
-{
-    Orange(String c)
-    {
-        super(c);
-    }
-    public String toString()
-    {
-        return "Color of Orange " + color;
-    }
-}
-class Mango extends Fruit
-{
-    Mango(String c)
-    {
-        super(c);
-    }
-    public String toString()
-    {
-        return "Color of Mango " + color;
-    }
-}
-class Grape extends Fruit
-{
-    Grape(String c)
-    {
-        super(c);
-    }
-    public String toString()
-    {
-        return "Color of Grape " + color;
-    }
-}
-public class Q2
-{
-	public static void main(String[] args)
-	{
-		Fruit f[]=new Fruit[4];
-		f[0]=new Apple("Red");
-		f[1]=new Orange("Orange");
-		f[2]=new Mango("Yellow");
-		f[3]=new Grape("Green");
-		for(int i=0;i<f.length;i++)
-		{
-		    System.out.println(f[i].toString());
-		}
-	}
 }

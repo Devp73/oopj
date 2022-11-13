@@ -1,68 +1,54 @@
-interface Calculation1
-{
-    void calculateArea();
-}
+package external;
 
-class Circle1 implements Calculation1
+class Series
 {
-    double ra;
-    
-    Circle1(double r)
+    void fibo()
     {
-        ra = r;
+        int n=10,n1=0,n2=1,n3=1;
+        int cnt=0;
+        while(cnt < n)
+        {
+            System.out.println(n1);
+            n3 = n1+n2;
+            n1=n2; n2=n3;
+            cnt++;
+        }
+        
+    }
+    void fibo(int terms)
+    {
+        int n1=0,n2=1,n3=1;
+        int cnt=0;
+        while(cnt < terms)
+        {
+            System.out.println(n1);
+            n3 = n1+n2;
+            n1=n2; n2=n3;
+            cnt++;
+        }
     }
     
-    public void calculateArea()
+    void fibo(int start, int end)
     {
-        double a = 3.14 * ra * ra;
-        System.out.println("Area of Circle is " + a);
-    }
-}
+        int curr = 1, prev = 1,temp=1;
+        while (curr <= end)
+        {
+            temp = curr;
+            curr = prev + curr;
+            prev = temp;
+            if (curr >= start && curr <= end)
+            {
+                System.out.println(curr);
+            }
+        }
 
-class Rectangle1 implements Calculation1
-{
-    int le,br;
-    
-    Rectangle1(int l, int b)
-    {
-        le = l;
-        br = b;
-    }
-    
-    public void calculateArea()
-    {
-        double a = le * br;
-        System.out.println("Area of Rectangle is " + a);
-    }
-}
-
-class Triangle1 implements Calculation1
-{
-    int he,br;
-    
-    Triangle1(int h, int b)
-    {
-        he = h;
-        br = b;
-    }
-    
-    public void calculateArea()
-    {
-        double a = 0.5 * he * br;
-        System.out.println("Area of Triangle is " + a);
     }
 }
-
 
 public class Q11 {
-    public static void main(String[] args) {
-        Calculation1 c1 = new Circle1(10);
-        Calculation1 c2 = new Rectangle1(10,20);
-        Calculation1 c3 = new Triangle1(10,20);
-        
-        c1.calculateArea();
-        c2.calculateArea();
-        c3.calculateArea();
+    public static void main(String args[]) {
+        Series obj = new Series();
+        obj.fibo(0,5);
     }
-    
 }
+

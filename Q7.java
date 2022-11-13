@@ -1,154 +1,50 @@
-import java.util.*;
+package external;
 
-abstract class Lib
-{
-    int java=100, sql=150, cg=50;
-    
-    abstract void submit();
-    abstract void issue();
-}
+import java.util.Scanner;
 
-interface student
+class AgeNotWithinRange extends Exception
 {
-    void info();
-}
-
-interface staff
-{
-    void info();
-}
-
-class LibTransitions extends Lib
-{
-    Scanner sc = new Scanner(System.in);
-    void submit()
+    public String toString()
     {
-        System.out.println("Which Book You want to Submit? Java/SQL/CG ?");
-        String s = sc.next();
-        
-        if(s.equalsIgnoreCase("java"))
-        {
-            if(java==100)
-            {
-                System.out.println("Invalid Submit");
-            }
-            else
-            {
-                java++;
-                System.out.println("Book Submitted");
-                System.out.println("Stock: " + java);
-            }
-        }
-        
-        if(s.equalsIgnoreCase("sql"))
-        {
-            if(sql==150)
-            {
-                System.out.println("Invalid Submit");
-            }
-            else
-            {
-                sql++;
-                System.out.println("Book Submitted");
-                System.out.println("Stock: " + sql);
-            }
-        }
-        
-        if(s.equalsIgnoreCase("cg"))
-        {
-            if(cg==50)
-            {
-                System.out.println("Invalid Submit");
-            }
-            else
-            {
-                cg++;
-                System.out.println("Book Submitted");
-                System.out.println("Stock: " + cg);
-            }
-        }
+        return "AgeNotWithinRange";
     }
-    
-    void issue()
+}
+
+class Driver
+{
+    int vno,age;
+    String name;
+    Driver(int vno,String name,int age)
     {
-        System.out.println("Which Book You want to Issue? Java/SQL/CG ?");
-        String s = sc.next();
-        
-        if(s.equalsIgnoreCase("java"))
-        {
-            if(java==0)
-            {
-                System.out.println("No More Books");
-            }
-            else
-            {
-                java--;
-                System.out.println("Book Issued");
-                System.out.println("Stock: " + java);
-            }
+        this.vno = vno;
+        this.name = name;
+        this.age = age;
+    }
+    void disp()
+    {
+        System.out.println("Vehicle number: " + vno);
+        System.out.println("Driver name: " + name);
+        System.out.println("Driver age: " + age);
+    }
+}
+
+public class Q7 {
+    public static void main(String args[]) {
+        try {
+            int vno,age;
+            String name;
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Enter Vehicle number: "); vno = sc.nextInt();
+            //sc.nextLine(); //to clear buffer
+            System.out.print("Enter Driver name: "); name = sc.next();
+            System.out.print("Enter Driver age: "); age = sc.nextInt();
+            if(age<18) throw new AgeNotWithinRange();
+            Driver d1 = new Driver(vno,name,age);
+            d1.disp();
             
-        }
-        
-        if(s.equalsIgnoreCase("sql"))
-        {
-            if(sql==0)
-            {
-                System.out.println("No More Books");
-            }
-            else
-            {
-                sql--;
-                System.out.println("Book Issued");
-                System.out.println("Stock: " + sql);
-            }
-        }
-        
-        if(s.equalsIgnoreCase("cg"))
-        {
-            if(cg==0)
-            {
-                System.out.println("No More Books");
-            }
-            else
-            {
-                cg--;
-                System.out.println("Book Issued");
-                System.out.println("Stock: " + cg);
-            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
         }
     }
 }
 
-public class Q7
-{
-    public static void main(String... args)
-    {
-        Scanner sc=new Scanner(System.in);
-	    
-        LibTransitions lt = new LibTransitions();
-        
-        int ch=1;
-        while(ch!=0)
-        {
-            System.out.println("Select Number :");
-            System.out.println("0.Exit ");
-            System.out.println("1.Submit ");
-            System.out.println("2.Issue ");
-            
-            ch=sc.nextInt();
-            switch(ch)
-            {
-                case 0:
-                    break;
-                case 1:
-                    lt.submit();
-                    break;
-                case 2:
-                    lt.issue();
-                    break; 
-                default:
-                    System.out.println("Please Enter Valid Number !!");
-            }
-        }
-    }
-}

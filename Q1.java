@@ -1,25 +1,25 @@
-import java.util.*;
-
+package external;
 public class Q1 {
-    public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
-        int a[]=new int[5];
-        
-        for (int i=0;i<a.length ;i++ ) 
-        {
-            System.out.println("Enter Number[i+1]: ");
-            a[i]=sc.nextInt();
-        }         
-        
-        Arrays.sort(a);
-        
-        System.out.println("Reverse Array is: ");
-        
-        for (int i=a.length-1; i>=0; i--) 
-        {
-            System.out.println(a[i]);
-        }
-
-    }
     
+    static char getMaxChar(String str)
+    {
+        //freq array based on ascii value
+        int cnt[] = new int[256]; //ascii size
+        for (int i = 0; i < str.length(); i++) {
+            cnt[str.charAt(i)]++;
+        } 
+        int max=-1;
+        char res = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if(max < cnt[str.charAt(i)])
+            {
+                max = cnt[str.charAt(i)];
+                res = str.charAt(i);
+            }
+        }
+        return res;
+    }
+    public static void main(String args[]) {
+        System.out.println(getMaxChar("howareyou"));
+    }
 }
